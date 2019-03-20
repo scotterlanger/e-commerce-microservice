@@ -1,0 +1,27 @@
+# Provision AWS EKS cluster
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: scott-micro
+  type: core.Directory
+  children:
+  - name: aws-scott-micro
+    type: aws.Cloud
+    accesskey: !value AWSAccessKey
+    accessSecret: !value AWSAccessSecret
+    children:
+    - name: eks-cloudformation
+      type: aws.cloudformation.Stack
+      region: us-east-2
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- name: scott-micro
+  type: core.Directory
+  children:
+  - name: aws-cloudformation-scott-micro
+    type: udm.Environment
+    members:
+    - Infrastructure/scott-micro/aws-scott-micro
+    - Infrastructure/scott-micro/aws-scott-micro/eks-cloudformation

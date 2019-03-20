@@ -1,0 +1,30 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: scott-micro
+  type: core.Directory
+  children:
+    - name: K8S
+      type: core.Directory
+      children:
+      - name: scott-micro-notification-mongodb
+        type: udm.Application
+        children:
+        - name: !value BUILD_ID
+          type: udm.DeploymentPackage
+          deployables:
+          - name: scott-micro-notification-mongodb
+            type: k8s.ResourcesFile
+            file: !file ../notification/build/kubernetes/notification-mongodb.yml
+      - name: scott-micro-notification
+        type: udm.Application
+        children:
+        - name: !value BUILD_ID
+          type: udm.DeploymentPackage
+          deployables:
+          - name: scott-micro-invoice-notification
+            type: k8s.ResourcesFile
+            file: !file ../notification/build/kubernetes/notification-deployment.yml
+          - name: scott-micro-notification-svc
+            type: k8s.ResourcesFile
+            file: !file ../notification/build/kubernetes/notification-service.yml

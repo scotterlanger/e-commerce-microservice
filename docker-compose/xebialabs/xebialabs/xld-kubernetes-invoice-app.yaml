@@ -1,0 +1,30 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: scott-micro
+  type: core.Directory
+  children:
+    - name: K8S
+      type: core.Directory
+      children:
+      - name: scott-micro-invoice-mysql
+        type: udm.Application
+        children:
+        - name: !value BUILD_ID
+          type: udm.DeploymentPackage
+          deployables:
+          - name: scott-micro-invoice-mysql
+            type: k8s.ResourcesFile
+            file: !file ../invoice/build/kubernetes/invoice-mysql.yml
+      - name: scott-micro-invoice
+        type: udm.Application
+        children:
+        - name: !value BUILD_ID
+          type: udm.DeploymentPackage
+          deployables:
+          - name: scott-micro-invoice-deployment
+            type: k8s.ResourcesFile
+            file: !file ../invoice/build/kubernetes/invoice-deployment.yml
+          - name: scott-micro-invoice-svc
+            type: k8s.ResourcesFile
+            file: !file ../invoice/build/kubernetes/invoice-service.yml
