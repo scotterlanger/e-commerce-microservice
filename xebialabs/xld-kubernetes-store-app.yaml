@@ -1,42 +1,42 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-micro
+- name: scott-micro-move
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: scott-micro-store-mysql
+      - name: scott-micro-move-store-mysql
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-store-mysql
+          - name: scott-micro-move-store-mysql
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-mysql.yml
-      - name: scott-micro-registry
+      - name: scott-micro-move-registry
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-application-config
+          - name: scott-micro-move-application-config
             type: k8s.ResourcesFile
             file: !file ../registry/kubernetes/application-configmap.yml
-          - name: scott-micro-jhipster-registry
+          - name: scott-micro-move-jhipster-registry
             type: k8s.ResourcesFile
             file: !file ../registry/kubernetes/jhipster-registry.yml
-      - name: scott-micro-store
+      - name: scott-micro-move-store
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-store-deployment
+          - name: scott-micro-move-store-deployment
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-deployment.yml
-          - name: scott-micro-store-svc
+          - name: scott-micro-move-store-svc
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-service.yml
