@@ -1,17 +1,17 @@
 apiVersion: xl-release/v1
 kind: Templates
 spec:
-- name: scott-micro-move
+- name: scott-micro-again
   type: xlrelease.Folder
   children:
-  - name: scott-micro-move-destroy
+  - name: scott-micro-again-destroy
     type: xlrelease.Release
     description: |
       This XL Release template shows how to undeploy an application, based on microservices architecture, to AWS EKS using XL Deploy.
     tags:
     - AWS
     - EKS
-    - scott-micro-move
+    - scott-micro-again
     scriptUsername: !value XL_RELEASE_USERNAME
     scriptUserPassword: !value XL_RELEASE_PASSWORD
     phases:
@@ -24,40 +24,40 @@ spec:
         - name: Undeploy registry svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-registry
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-registry
         - name: Undeploy invoice svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-invoice
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-invoice
         - name: Undeploy notification svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-notification
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-notification
         - name: Undeploy store svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-store
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-store
       - name: Undeploy stateful services
         type: xlrelease.ParallelGroup
         tasks:
         - name: Undeploy invoice mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-invoice-mysql
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-invoice-mysql
         - name: Undeploy store mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-store-mysql
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-store-mysql
         - name: Undeploy notification mongodb svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-notification-mongodb
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-notification-mongodb
       
       # Un-provision namespace
       - name: Undeploy xl-demo namespace
         type: xldeploy.Undeploy
         server: XL Deploy
-        deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move/scott-micro-move-namespace
+        deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again/scott-micro-again-namespace
       
     
     # De-provision Infra
@@ -71,34 +71,34 @@ spec:
         - name: Deprovision EKS config map for workers
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-eks-scott-micro-move-kube-system/scott-micro-move-k8s-configmap
+          deployedApplication: Environments/scott-micro-again/aws-eks-scott-micro-again-kube-system/scott-micro-again-k8s-configmap
         - name: Deprovision EKS workers nodes
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-cloudformation-eks-workers
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-cloudformation-eks-workers
         - name: Deprovision EKS master node
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-cloudformation-eks-master
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-cloudformation-eks-master
       - name: Delete artifacts from S3
         type: xlrelease.SequentialGroup
         tasks:
         - name: Delete artifacts from S3
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-lambda-artifacts
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-lambda-artifacts
         - name: Delete S3 bucket
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-lambda-bucket
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-lambda-bucket
       - name: Deprovision AWS VPC and IAM resources
         type: xlrelease.ParallelGroup
         tasks:
         - name: Deprovision AWS IAM resources
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-cloudformation-eks-user
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-cloudformation-eks-user
         - name: Deprovision AWS VPC
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-micro-move/aws-cloudformation-scott-micro-move/scott-micro-move-cloudformation-eks-vpc
+          deployedApplication: Environments/scott-micro-again/aws-cloudformation-scott-micro-again/scott-micro-again-cloudformation-eks-vpc
