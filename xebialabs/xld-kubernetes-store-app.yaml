@@ -1,42 +1,42 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-micro-again
+- name: scott-micro-again-2
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: scott-micro-again-store-mysql
+      - name: scott-micro-again-2-store-mysql
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-again-store-mysql
+          - name: scott-micro-again-2-store-mysql
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-mysql.yml
-      - name: scott-micro-again-registry
+      - name: scott-micro-again-2-registry
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-again-application-config
+          - name: scott-micro-again-2-application-config
             type: k8s.ResourcesFile
             file: !file ../registry/kubernetes/application-configmap.yml
-          - name: scott-micro-again-jhipster-registry
+          - name: scott-micro-again-2-jhipster-registry
             type: k8s.ResourcesFile
             file: !file ../registry/kubernetes/jhipster-registry.yml
-      - name: scott-micro-again-store
+      - name: scott-micro-again-2-store
         type: udm.Application
         children:
         - name: !value BUILD_ID
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-micro-again-store-deployment
+          - name: scott-micro-again-2-store-deployment
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-deployment.yml
-          - name: scott-micro-again-store-svc
+          - name: scott-micro-again-2-store-svc
             type: k8s.ResourcesFile
             file: !file ../store/build/kubernetes/store-service.yml

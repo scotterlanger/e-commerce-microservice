@@ -26,4 +26,4 @@ To deploy this blueprint with the XebiaLabs DevOps Platform, follow the steps be
     xl apply -f xebialabs.yaml
     ```
 
-2. Go to XL Release, look for the "scott-micro-again-ci-cd" template, and start a new release from it.
+2. Go to XL Release, look for the "scott-micro-again-2-ci-cd" template, and start a new release from it.

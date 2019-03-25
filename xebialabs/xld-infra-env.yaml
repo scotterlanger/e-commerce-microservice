@@ -2,10 +2,10 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-- name: scott-micro-again
+- name: scott-micro-again-2
   type: core.Directory
   children:
-  - name: aws-scott-micro-again
+  - name: aws-scott-micro-again-2
     type: aws.Cloud
     accesskey: !value AWSAccessKey
     accessSecret: !value AWSAccessSecret
@@ -17,11 +17,11 @@ spec:
 apiVersion: xl-deploy/v1
 kind: Environments
 spec:
-- name: scott-micro-again
+- name: scott-micro-again-2
   type: core.Directory
   children:
-  - name: aws-cloudformation-scott-micro-again
+  - name: aws-cloudformation-scott-micro-again-2
     type: udm.Environment
     members:
-    - Infrastructure/scott-micro-again/aws-scott-micro-again
-    - Infrastructure/scott-micro-again/aws-scott-micro-again/eks-cloudformation
+    - Infrastructure/scott-micro-again-2/aws-scott-micro-again-2
+    - Infrastructure/scott-micro-again-2/aws-scott-micro-again-2/eks-cloudformation

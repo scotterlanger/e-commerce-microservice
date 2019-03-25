@@ -1,7 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-micro-again
+- name: scott-micro-again-2
   type: core.Directory
   children:
 
@@ -9,24 +9,24 @@ spec:
     type: core.Directory
     children:
     # create S3 bucket
-    - name: scott-micro-again-lambda-bucket
+    - name: scott-micro-again-2-lambda-bucket
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: s3-bucket-scott-micro-again-lambda
+        - name: s3-bucket-scott-micro-again-2-lambda
           type: aws.s3.BucketSpec
-          bucketName: scott-micro-again-lambda
+          bucketName: scott-micro-again-2-lambda
           region: us-east-2
     # upload the artifacts to S3 bucket
-    - name: scott-micro-again-lambda-artifacts
+    - name: scott-micro-again-2-lambda-artifacts
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-lambda-artifacts
+        - name: scott-micro-again-2-lambda-artifacts
           type: aws.s3.File
           file: !file ../cloudformation/cfn-secret-provider.zip
           acl: bucket-owner-full-control
@@ -35,77 +35,77 @@ spec:
   - name: EKS-CLOUDFORMATION
     type: core.Directory
     children:
-    - name: scott-micro-again-cloudformation-eks-user
+    - name: scott-micro-again-2-cloudformation-eks-user
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-eks-user
+        - name: scott-micro-again-2-eks-user
           type: aws.cloudformation.Template
           file: !file ../cloudformation/eks-user.yaml
           capabilities:
           - CAPABILITY_IAM
           - CAPABILITY_NAMED_IAM
           inputVariables:
-            ProjectName: scott-micro-again
-            UserStackName: scott-micro-again-eks-user
-            S3BucketPrefix: scott-micro-again-lambda
-    - name: scott-micro-again-cloudformation-eks-vpc
+            ProjectName: scott-micro-again-2
+            UserStackName: scott-micro-again-2-eks-user
+            S3BucketPrefix: scott-micro-again-2-lambda
+    - name: scott-micro-again-2-cloudformation-eks-vpc
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-eks-vpc
+        - name: scott-micro-again-2-eks-vpc
           type: aws.cloudformation.Template
           file: !file ../cloudformation/eks-vpc.yaml
           capabilities:
           - CAPABILITY_IAM
           - CAPABILITY_NAMED_IAM
           inputVariables:
-            ProjectName: scott-micro-again
-            VPCStackName: scott-micro-again-eks-vpc
+            ProjectName: scott-micro-again-2
+            VPCStackName: scott-micro-again-2-eks-vpc
             AvailabilityZones: us-east-2a, us-east-2b
-    - name: scott-micro-again-cloudformation-eks-master
+    - name: scott-micro-again-2-cloudformation-eks-master
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-eks-master
+        - name: scott-micro-again-2-eks-master
           type: aws.cloudformation.Template
           file: !file ../cloudformation/eks-master.yaml
           capabilities:
           - CAPABILITY_IAM
           - CAPABILITY_NAMED_IAM
           inputVariables:
-            ProjectName: scott-micro-again
-            VPCStackName: scott-micro-again-eks-vpc
-    - name: scott-micro-again-cloudformation-eks-workers
+            ProjectName: scott-micro-again-2
+            VPCStackName: scott-micro-again-2-eks-vpc
+    - name: scott-micro-again-2-cloudformation-eks-workers
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-eks-workers
+        - name: scott-micro-again-2-eks-workers
           type: aws.cloudformation.Template
           file: !file ../cloudformation/eks-workers.yaml
           capabilities:
           - CAPABILITY_IAM
           - CAPABILITY_NAMED_IAM
           inputVariables:
-            ProjectName: scott-micro-again
-            VPCStackName: scott-micro-again-eks-vpc
-            UserStackName: scott-micro-again-eks-user
-            ClusterStackName: scott-micro-again-eks-master
-            ClusterName: scott-micro-again-master
-            NodeGroupName: scott-micro-again
+            ProjectName: scott-micro-again-2
+            VPCStackName: scott-micro-again-2-eks-vpc
+            UserStackName: scott-micro-again-2-eks-user
+            ClusterStackName: scott-micro-again-2-eks-master
+            ClusterName: scott-micro-again-2-master
+            NodeGroupName: scott-micro-again-2
           boundTemplates:
             - "../eks-cluster"
-            - "../aws-eks-scott-micro-again"
-            - "../aws-eks-scott-micro-again-kube-system"
-            - "../aws-eks-scott-micro-again-dictionary"
+            - "../aws-eks-scott-micro-again-2"
+            - "../aws-eks-scott-micro-again-2-kube-system"
+            - "../aws-eks-scott-micro-again-2-dictionary"
         # create infrastructure entry in XLD using the cluster info that was created
         templates:
         - name: eks-cluster
@@ -113,44 +113,44 @@ spec:
           apiServerURL: '{{%outputVariables.ClusterEndpoint%}}'
           skipTLS: "true"
           isEKS: "true"
-          clusterName: "scott-micro-again-master"
+          clusterName: "scott-micro-again-2-master"
           accessKey: !value AWSAccessKey
           accessSecret: !value AWSAccessSecret
-          instanceName: "scott-micro-again/eks-cluster"
+          instanceName: "scott-micro-again-2/eks-cluster"
           childTemplates:
           # this namespace is needed for authentication to the cluster
           - name: kube-system
             type: "template.k8s.Namespace"
             namespaceName: "kube-system"
-        # this dictionary is needed for aws-eks-scott-micro-again-kube-system environment
-        - name: aws-eks-scott-micro-again-dictionary
+        # this dictionary is needed for aws-eks-scott-micro-again-2-kube-system environment
+        - name: aws-eks-scott-micro-again-2-dictionary
           type: "template.udm.Dictionary"
-          instanceName: "scott-micro-again/aws-eks-scott-micro-again-dictionary"
+          instanceName: "scott-micro-again-2/aws-eks-scott-micro-again-2-dictionary"
           entries:
             NodeInstanceRole: '{{%outputVariables.NodeInstanceRole%}}'
             EksUser: '{{%outputVariables.EksUser%}}'
             EksUserArn: '{{%outputVariables.EksUserArn%}}'
         # create environment entry in XLD for the newly created clusters
-        - name: aws-eks-scott-micro-again
+        - name: aws-eks-scott-micro-again-2
           type: "template.udm.Environment"
-          instanceName: "scott-micro-again/aws-eks-scott-micro-again"
+          instanceName: "scott-micro-again-2/aws-eks-scott-micro-again-2"
           members:
             - "../eks-cluster"
-        - name: aws-eks-scott-micro-again-kube-system
+        - name: aws-eks-scott-micro-again-2-kube-system
           type: "template.udm.Environment"
-          instanceName: "scott-micro-again/aws-eks-scott-micro-again-kube-system"
+          instanceName: "scott-micro-again-2/aws-eks-scott-micro-again-2-kube-system"
           members:
             - "../eks-cluster/kube-system"
           dictionaries:
-            - "../aws-eks-scott-micro-again-dictionary"
+            - "../aws-eks-scott-micro-again-2-dictionary"
     # config map used to create custom user for authentication to the EKS cluster
-    - name: scott-micro-again-k8s-configmap
+    - name: scott-micro-again-2-k8s-configmap
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-micro-again-aws-auth
+        - name: scott-micro-again-2-aws-auth
           type: k8s.ResourcesFile
           file: !file ../kubernetes/aws-auth-cm.yaml
           delimiters: "## ##"
@@ -160,7 +160,7 @@ spec:
 
     children:
     # Provision K8s namespace
-    - name: scott-micro-again-namespace
+    - name: scott-micro-again-2-namespace
       type: udm.Application
       children:
       - name: '1.0.0'
