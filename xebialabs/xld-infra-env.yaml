@@ -1,0 +1,28 @@
+# Provision GCP GKE cluster
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: scott-gcp-test-4
+  type: core.Directory
+  children:
+  - name: gcp-terraform
+    type: overthere.LocalHost
+    os: UNIX
+    children:
+    - name: terraform-client
+      type: terraform.TerraformClient
+      path: '/usr/local/bin' # for local installation
+      workingDirectory: '/tmp/scott-gcp-test-4' # for local installation
+
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- name: scott-gcp-test-4
+  type: core.Directory
+  children:
+  - name: gcp-terraform
+    type: udm.Environment
+    members:
+    - Infrastructure/scott-gcp-test-4/gcp-terraform
+    - Infrastructure/scott-gcp-test-4/gcp-terraform/terraform-client

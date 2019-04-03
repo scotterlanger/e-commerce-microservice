@@ -1,23 +1,23 @@
-version: '2.3'
+version: '3'
 services:
   xl-deploy:
-    build: xl-deploy
+    image: xebialabs/xl-jetpack-deploy:8.6.1
     ports:
-    - 4516:4516
+    - "4516:4516"
     environment:
     - ADMIN_PASSWORD=admin
+    - ACCEPT_EULA=Y
 
   xl-release:
-    build: xl-release
+    image: xebialabs/xl-jetpack-release:8.6.1
     ports:
-    - 5516:5516
-    depends_on:
-    - xl-deploy
+    - "5516:5516"
     environment:
     - ADMIN_PASSWORD=admin
+    - ACCEPT_EULA=Y
 
   xl-cli:
-    build: xl-cli
+    image: xebialabsunsupported/xl-cli:8.6.1
     depends_on:
     - xl-deploy
     - xl-release
@@ -26,7 +26,7 @@ services:
     - ./data/:/data:ro
 
   jenkins:
-    build: jenkins
+    image: xebialabsunsupported/jenkins-blueprint-demo:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./jenkins/jenkins.yaml:/var/jenkins_home/casc_configs/jenkins.yaml

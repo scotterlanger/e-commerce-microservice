@@ -43,7 +43,6 @@ node {
         archiveArtifacts artifacts: '**/build/libs/*.war', fingerprint: true
     }
 
-
     def dockerImage
     stage('build docker') {
         sh "cp -R store/src/main/docker store/build/"

@@ -15,6 +15,7 @@ node {
     }
 
 
+<<<<<<< HEAD
     stage('backend tests') {
         try {
             sh "cd notification && ./gradlew test -PnodeInstall --no-daemon"
