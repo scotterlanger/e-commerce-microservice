@@ -165,8 +165,8 @@ To deploy this blueprint with the XebiaLabs DevOps Platform, follow the steps be
     xl apply -f xebialabs.yaml
     ```
 
-2. Go to XL Release, look for the "scott-gcp-test-4-ci-cd" template, and start a new release from it.
-3. Once you are done, go to XL Release, look for the "scott-gcp-test-4-destroy" template, and start a new release from it to automatically rollback and destroy the resources you created.
+2. Go to XL Release, look for the "scott-gcp-redo-ci-cd" template, and start a new release from it.
+3. Once you are done, go to XL Release, look for the "scott-gcp-redo-destroy" template, and start a new release from it to automatically rollback and destroy the resources you created.
 
 ## Minimum Required versions
 

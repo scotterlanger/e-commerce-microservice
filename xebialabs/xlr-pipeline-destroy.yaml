@@ -1,17 +1,17 @@
 apiVersion: xl-release/v1
 kind: Templates
 spec:
-- name: scott-gcp-test-4
+- name: scott-gcp-redo
   type: xlrelease.Folder
   children:
-  - name: scott-gcp-test-4-destroy
+  - name: scott-gcp-redo-destroy
     type: xlrelease.Release
     description: |
       This XL Release template shows how to undeploy an application, based on microservices architecture, to GCP GKE using XL Deploy and Terraform.
     tags:
     - GCP
     - GKE
-    - scott-gcp-test-4
+    - scott-gcp-redo
     scriptUsername: !value XL_RELEASE_USERNAME
     scriptUserPassword: !value XL_RELEASE_PASSWORD
     phases:
@@ -24,40 +24,40 @@ spec:
         - name: Undeploy registry svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-registry
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-registry
         - name: Undeploy invoice svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-invoice
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-invoice
         - name: Undeploy notification svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-notification
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-notification
         - name: Undeploy store svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-store
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-store
       - name: Undeploy stateful services
         type: xlrelease.ParallelGroup
         tasks:
         - name: Undeploy invoice mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-invoice-mysql
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-invoice-mysql
         - name: Undeploy store mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-store-mysql
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-store-mysql
         - name: Undeploy notification mongodb svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-notification-mongodb
+          deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-notification-mongodb
       
       # Un-provision namespace
       - name: Undeploy xl-demo namespace
         type: xldeploy.Undeploy
         server: XL Deploy
-        deployedApplication: Environments/scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke/scott-gcp-test-4-namespace
+        deployedApplication: Environments/scott-gcp-redo/gcp-gke-scott-gcp-redo-gke/scott-gcp-redo-namespace
       
     
     # De-provision Infra
@@ -68,4 +68,4 @@ spec:
       - name: Deprovision GCP GKE cluster
         type: xldeploy.Undeploy
         server: XL Deploy
-        deployedApplication: Environments/scott-gcp-test-4/gcp-terraform/scott-gcp-test-4-terraform-gke
+        deployedApplication: Environments/scott-gcp-redo/gcp-terraform/scott-gcp-redo-terraform-gke

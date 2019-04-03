@@ -1,7 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-test-4
+- name: scott-gcp-redo
   type: core.Directory
   children:
 
@@ -9,40 +9,40 @@ spec:
   - name: GKE-TERRAFORM
     type: core.Directory
     children:
-    - name: scott-gcp-test-4-terraform-gke
+    - name: scott-gcp-redo-terraform-gke
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-gcp-test-4-gke
+        - name: scott-gcp-redo-gke
           type: terraform.Module
           file: !file ../terraform
           inputVariables:
             project_id: deepu-playground
-            name: scott-gcp-test-4
+            name: scott-gcp-redo
             region: us-east1
             gke_master_user: admin
             gke_master_pass: !value K8SMasterPassword
           boundTemplates:
-          - "../gcp-gke-scott-gcp-test-4-gke"
-          - "../gcp-gke-scott-gcp-test-4-gke-env"
+          - "../gcp-gke-scott-gcp-redo-gke"
+          - "../gcp-gke-scott-gcp-redo-gke-env"
 
         templates:
         # creates the required XLD infrastructure entries
-        - name: gcp-gke-scott-gcp-test-4-gke
+        - name: gcp-gke-scott-gcp-redo-gke
           type: template.k8s.Master
           username: admin
           password: !value K8SMasterPassword
           apiServerURL: 'https://{{%outputVariables.endpoint%}}'
           skipTLS: true
-          instanceName: scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke
+          instanceName: scott-gcp-redo/gcp-gke-scott-gcp-redo-gke
         # creates a new environment for Kubernetes deployments
-        - name: gcp-gke-scott-gcp-test-4-gke-env
+        - name: gcp-gke-scott-gcp-redo-gke-env
           type: template.udm.Environment
           members:
-          - "../gcp-gke-scott-gcp-test-4-gke"
-          instanceName: scott-gcp-test-4/gcp-gke-scott-gcp-test-4-gke
+          - "../gcp-gke-scott-gcp-redo-gke"
+          instanceName: scott-gcp-redo/gcp-gke-scott-gcp-redo-gke
 
 
   - name: K8S
@@ -50,7 +50,7 @@ spec:
 
 # Provision K8s namespace
     children:
-    - name: scott-gcp-test-4-namespace
+    - name: scott-gcp-redo-namespace
       type: udm.Application
       children:
       - name: '1.0.0'

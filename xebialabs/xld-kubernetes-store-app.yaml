@@ -1,42 +1,42 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-test-4
+- name: scott-gcp-redo
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: scott-gcp-test-4-store-mysql
+      - name: scott-gcp-redo-store-mysql
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-4-store-mysql
+          - name: scott-gcp-redo-store-mysql
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-mysql.yml
-      - name: scott-gcp-test-4-registry
+      - name: scott-gcp-redo-registry
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-4-application-config
+          - name: scott-gcp-redo-application-config
             type: k8s.ResourcesFile
             file: !file ../kubernetes/registry/application-configmap.yml
-          - name: scott-gcp-test-4-jhipster-registry
+          - name: scott-gcp-redo-jhipster-registry
             type: k8s.ResourcesFile
             file: !file ../kubernetes/registry/jhipster-registry.yml
-      - name: scott-gcp-test-4-store
+      - name: scott-gcp-redo-store
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-4-store-deployment
+          - name: scott-gcp-redo-store-deployment
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-deployment.yml
-          - name: scott-gcp-test-4-store-svc
+          - name: scott-gcp-redo-store-svc
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-service.yml
