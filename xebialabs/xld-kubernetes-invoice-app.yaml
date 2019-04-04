@@ -1,30 +1,30 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-redo
+- name: scott-gcp-test-market
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: scott-gcp-redo-invoice-mysql
+      - name: scott-gcp-test-market-invoice-mysql
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-redo-invoice-mysql
+          - name: scott-gcp-test-market-invoice-mysql
             type: k8s.ResourcesFile
             file: !file ../kubernetes/invoice/invoice-mysql.yml
-      - name: scott-gcp-redo-invoice
+      - name: scott-gcp-test-market-invoice
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-redo-invoice-deployment
+          - name: scott-gcp-test-market-invoice-deployment
             type: k8s.ResourcesFile
             file: !file ../kubernetes/invoice/invoice-deployment.yml
-          - name: scott-gcp-redo-invoice-svc
+          - name: scott-gcp-test-market-invoice-svc
             type: k8s.ResourcesFile
             file: !file ../kubernetes/invoice/invoice-service.yml

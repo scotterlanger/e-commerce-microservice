@@ -1,7 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-redo
+- name: scott-gcp-test-market
   type: core.Directory
   children:
 
@@ -9,40 +9,40 @@ spec:
   - name: GKE-TERRAFORM
     type: core.Directory
     children:
-    - name: scott-gcp-redo-terraform-gke
+    - name: scott-gcp-test-market-terraform-gke
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-gcp-redo-gke
+        - name: scott-gcp-test-market-gke
           type: terraform.Module
           file: !file ../terraform
           inputVariables:
-            project_id: deepu-playground
-            name: scott-gcp-redo
+            project_id: tech-marketing-236315
+            name: scott-gcp-test-market
             region: us-east1
             gke_master_user: admin
             gke_master_pass: !value K8SMasterPassword
           boundTemplates:
-          - "../gcp-gke-scott-gcp-redo-gke"
-          - "../gcp-gke-scott-gcp-redo-gke-env"
+          - "../gcp-gke-scott-gcp-test-market-gke"
+          - "../gcp-gke-scott-gcp-test-market-gke-env"
 
         templates:
         # creates the required XLD infrastructure entries
-        - name: gcp-gke-scott-gcp-redo-gke
+        - name: gcp-gke-scott-gcp-test-market-gke
           type: template.k8s.Master
           username: admin
           password: !value K8SMasterPassword
           apiServerURL: 'https://{{%outputVariables.endpoint%}}'
           skipTLS: true
-          instanceName: scott-gcp-redo/gcp-gke-scott-gcp-redo-gke
+          instanceName: scott-gcp-test-market/gcp-gke-scott-gcp-test-market-gke
         # creates a new environment for Kubernetes deployments
-        - name: gcp-gke-scott-gcp-redo-gke-env
+        - name: gcp-gke-scott-gcp-test-market-gke-env
           type: template.udm.Environment
           members:
-          - "../gcp-gke-scott-gcp-redo-gke"
-          instanceName: scott-gcp-redo/gcp-gke-scott-gcp-redo-gke
+          - "../gcp-gke-scott-gcp-test-market-gke"
+          instanceName: scott-gcp-test-market/gcp-gke-scott-gcp-test-market-gke
 
 
   - name: K8S
@@ -50,7 +50,7 @@ spec:
 
 # Provision K8s namespace
     children:
-    - name: scott-gcp-redo-namespace
+    - name: scott-gcp-test-market-namespace
       type: udm.Application
       children:
       - name: '1.0.0'
