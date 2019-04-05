@@ -34,7 +34,7 @@ spec:
                 done
       containers:
       - name: invoice-app
-        image: scotterlanger/ecommerce-invoice
+        image: serlanger/ecommerce-invoice
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod

@@ -34,7 +34,7 @@ spec:
                 done
       containers:
       - name: store-app
-        image: scotterlanger/ecommerce-store
+        image: serlanger/ecommerce-store
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
