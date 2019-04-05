@@ -1,42 +1,42 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-test-market
+- name: scott-gcp-final
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: scott-gcp-test-market-store-mysql
+      - name: scott-gcp-final-store-mysql
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-market-store-mysql
+          - name: scott-gcp-final-store-mysql
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-mysql.yml
-      - name: scott-gcp-test-market-registry
+      - name: scott-gcp-final-registry
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-market-application-config
+          - name: scott-gcp-final-application-config
             type: k8s.ResourcesFile
             file: !file ../kubernetes/registry/application-configmap.yml
-          - name: scott-gcp-test-market-jhipster-registry
+          - name: scott-gcp-final-jhipster-registry
             type: k8s.ResourcesFile
             file: !file ../kubernetes/registry/jhipster-registry.yml
-      - name: scott-gcp-test-market-store
+      - name: scott-gcp-final-store
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: scott-gcp-test-market-store-deployment
+          - name: scott-gcp-final-store-deployment
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-deployment.yml
-          - name: scott-gcp-test-market-store-svc
+          - name: scott-gcp-final-store-svc
             type: k8s.ResourcesFile
             file: !file ../kubernetes/store/store-service.yml

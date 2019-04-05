@@ -1,7 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: scott-gcp-test-market
+- name: scott-gcp-final
   type: core.Directory
   children:
 
@@ -9,40 +9,40 @@ spec:
   - name: GKE-TERRAFORM
     type: core.Directory
     children:
-    - name: scott-gcp-test-market-terraform-gke
+    - name: scott-gcp-final-terraform-gke
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: scott-gcp-test-market-gke
+        - name: scott-gcp-final-gke
           type: terraform.Module
           file: !file ../terraform
           inputVariables:
             project_id: tech-marketing-236315
-            name: scott-gcp-test-market
+            name: scott-gcp-final
             region: us-east1
             gke_master_user: admin
             gke_master_pass: !value K8SMasterPassword
           boundTemplates:
-          - "../gcp-gke-scott-gcp-test-market-gke"
-          - "../gcp-gke-scott-gcp-test-market-gke-env"
+          - "../gcp-gke-scott-gcp-final-gke"
+          - "../gcp-gke-scott-gcp-final-gke-env"
 
         templates:
         # creates the required XLD infrastructure entries
-        - name: gcp-gke-scott-gcp-test-market-gke
+        - name: gcp-gke-scott-gcp-final-gke
           type: template.k8s.Master
           username: admin
           password: !value K8SMasterPassword
           apiServerURL: 'https://{{%outputVariables.endpoint%}}'
           skipTLS: true
-          instanceName: scott-gcp-test-market/gcp-gke-scott-gcp-test-market-gke
+          instanceName: scott-gcp-final/gcp-gke-scott-gcp-final-gke
         # creates a new environment for Kubernetes deployments
-        - name: gcp-gke-scott-gcp-test-market-gke-env
+        - name: gcp-gke-scott-gcp-final-gke-env
           type: template.udm.Environment
           members:
-          - "../gcp-gke-scott-gcp-test-market-gke"
-          instanceName: scott-gcp-test-market/gcp-gke-scott-gcp-test-market-gke
+          - "../gcp-gke-scott-gcp-final-gke"
+          instanceName: scott-gcp-final/gcp-gke-scott-gcp-final-gke
 
 
   - name: K8S
@@ -50,7 +50,7 @@ spec:
 
 # Provision K8s namespace
     children:
-    - name: scott-gcp-test-market-namespace
+    - name: scott-gcp-final-namespace
       type: udm.Application
       children:
       - name: '1.0.0'

@@ -2,7 +2,7 @@
 terraform {
   backend "gcs" {
     bucket = "tech-marketing-236315"
-    prefix = "terraform-scott"
+    prefix = "terraform"
     credentials = "account.json"
   }
 }
